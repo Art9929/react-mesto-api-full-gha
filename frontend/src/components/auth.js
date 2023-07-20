@@ -1,7 +1,7 @@
-export const BASE_URL = 'http://51.250.25.223:4000';
+export const BASE_URL = 'http://a-ryabcev.nomoredomains.xyz';
 
 export const signup = (email, password) => {
-  return fetch(`http://51.250.25.223:4000/signup`, {
+  return fetch(`http://a-ryabcev.nomoredomains.xyz/signup`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

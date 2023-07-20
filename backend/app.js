@@ -22,7 +22,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'public'))); // подключаем фронт
 
 app.use(cors({
-  origin: 'http://51.250.25.223:3000',
+  origin: 'http://a-ryabcev.nomoredomains.xyz:3000',
   credentials: true,
 }));
 app.use(express.json()); // то, что позволит обрабатывать json при методе post
