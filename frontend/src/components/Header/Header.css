@@ -1,0 +1,31 @@
+.header__nav {
+  margin: 0;
+  display: flex;
+  gap: 24px;
+}
+
+.header__list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.header__text {
+  margin: 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+  cursor: default;
+}
+
+.header__text-exit {
+  margin: 0;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  background: none;
+  color: #A9A9A9;
+  border: 0;
+  cursor: pointer;
+}

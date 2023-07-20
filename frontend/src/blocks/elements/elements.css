@@ -1,0 +1,15 @@
+.elements {
+  margin: 51px 200px 0 200px;
+}
+
+@media (max-width: 1024px) {
+  .elements {
+    margin: 51px 100px 0 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .elements {
+    margin: 36px 19px 0 19px;
+  }
+}

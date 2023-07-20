@@ -1,0 +1,19 @@
+.group__trash {
+  background-image: url("../../../images/trash.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 18px;
+  height: 19px;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  transition: opacity 0.3s ease;
+  background-color: transparent;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.group__trash:hover {
+  opacity: 0.6;
+}

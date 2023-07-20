@@ -1,0 +1,16 @@
+.group__vector {
+  background-image: url("../../../images/heart_disabled.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 22px;
+  height: 19px;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  transition: opacity 0.3s ease;
+  background-color: transparent;
+}
+
+.group__vector:hover {
+  opacity: 0.5;
+}
