@@ -19,7 +19,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/mydatabase', {
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public'))); // подключаем фронт
+app.use(express.static(path.join(__dirname, '../frontend/build'))); // подключаем фронт
 
 app.use(cors({
   origin: 'http://localhost:3000',
