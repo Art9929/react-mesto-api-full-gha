@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://a-ryabcev.nomoredomains.xyz/api';
+export const BASE_URL = 'https://a-ryabcev.nomoredomains.xyz/api';
 
 export const signup = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
