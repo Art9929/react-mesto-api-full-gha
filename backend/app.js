@@ -22,11 +22,11 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'public'))); // подключаем фронт
 
 app.use(cors({
-  origin: 'http://a-ryabcev.nomoredomains.xyz:3000',
+  origin: 'http://localhost:3000',
   credentials: true,
 }));
 app.use(express.json()); // то, что позволит обрабатывать json при методе post
-app.use(routes); // Подключаем роуты
+app.use('/api/', routes); // Подключаем роуты
 // обработка ошибок celebrate
 app.use(errors());
 // Централизация ошибок

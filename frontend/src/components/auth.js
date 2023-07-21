@@ -1,7 +1,7 @@
-export const BASE_URL = 'http://a-ryabcev.nomoredomains.xyz';
+export const BASE_URL = 'http://a-ryabcev.nomoredomains.xyz/api';
 
 export const signup = (email, password) => {
-  return fetch(`http://a-ryabcev.nomoredomains.xyz/signup`, {
+  return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
