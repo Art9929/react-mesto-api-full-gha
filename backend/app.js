@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
-const path = require('path');
+// const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate'); // для обработки ошибок
@@ -28,10 +28,13 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(express.static(path.join(__dirname, '../frontend/build'))); // подключаем фронт
+// app.use(express.static(path.join(__dirname, '../frontend/build'))); // подключаем фронт
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: [
+    'https://a-ryabcev.nomoredomains.xyz',
+    'http://a-ryabcev.nomoredomains.xyz',
+    'http://localhost:3000'],
   credentials: true,
 }));
 app.use(express.json()); // то, что позволит обрабатывать json при методе post

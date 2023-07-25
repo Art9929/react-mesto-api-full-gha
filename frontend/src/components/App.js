@@ -111,7 +111,6 @@ function App() {
     }
 
   useEffect(() => {
-    if (document.cookie) {
     // setIsLoading(true); крутилка
     auth
       .checkToken()
@@ -132,7 +131,6 @@ function App() {
       })
       .catch((err) => console.error(err));
     // .finally(() => setIsLoading(false));
-    }
   }, [loggedIn]);
 
   useEffect(() => {
