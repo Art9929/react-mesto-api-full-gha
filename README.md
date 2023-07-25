@@ -11,6 +11,6 @@
 
 IP-адрес 51.250.25.223
 
-Frontend https://a-ryabcev.nomoredomains.xyz
+Frontend https://a-ryabcev.nomoredomains.xyz/
 
-Backend https://a-ryabcev.nomoredomains.xyz/api/users
+Backend https://api.a-ryabcev.nomoredomains.xyz/
