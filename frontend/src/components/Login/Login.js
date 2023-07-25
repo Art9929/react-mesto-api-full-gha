@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import * as auth from '../auth.js';
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import './Login.css';
 
-const Login = ({handleSubmit, handleChange, formValue }) => {
+const Login = ({handleSubmit, handleChange, formValue, onClose, isOpen, imgActive }) => {
 
   return (
     <div className="auth">
@@ -42,6 +43,11 @@ const Login = ({handleSubmit, handleChange, formValue }) => {
           </button>
         </form>
       </div>
+      <InfoTooltip
+        isOpen={isOpen}
+        onClose={onClose}
+        imgActive={imgActive}
+      />
     </div>
   );
 };

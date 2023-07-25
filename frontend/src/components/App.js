@@ -37,8 +37,8 @@ function App() {
     email: "",
     password: "",
   });
-  //  Авторизация
 
+  //  Авторизация
   function handleOpenPopups() {
     return "popup_opened";
   }
@@ -111,8 +111,13 @@ function App() {
     }
 
   useEffect(() => {
-    // if (searchQuery) {
+    if (document.cookie) {
     // setIsLoading(true); крутилка
+    auth
+      .checkToken()
+      .then((res) => setData(res))
+      .catch((err) => console.error(err));
+
     api
       .profile()
       .then((data) => {
@@ -127,39 +132,29 @@ function App() {
       })
       .catch((err) => console.error(err));
     // .finally(() => setIsLoading(false));
-    // }
-  }, []);
+    }
+  }, [loggedIn]);
 
-
-// Регистрация и Авторизация
-const handleLogin = () => {
-  setLoggedIn(true);
-}
-
-useEffect(() => {
-  const handleTokenCheck = () => {
-      auth.checkToken()
-      .then((res) => {
-        setData(res)
-        if (res.data){
-          setLoggedIn(true);
-          navigate("/")
-        } else {
-          setLoggedIn(false);
-        }
-    })
-    .catch((err) => {
+  useEffect(() => {
+    if (document.cookie){
+      setLoggedIn(true);
+      navigate("/cards")
+    } else {
       setLoggedIn(false);
-      console.error(err)}
-      );
-  }
-  handleTokenCheck();
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, []) // [] - токльо при первой загрузке
+      navigate("/")
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // [] - токльо при первой загрузке
 
 const removeToken = () => {
-  setLoggedIn(false);
-  navigate("/", {replace: true})
+// Удаление Куки при выходе
+  const cookies = document.cookie.split(/;/);
+  for (var i = 0, len = cookies.length; i < len; i++) {
+    var cookie = cookies[i].split(/=/);
+    document.cookie = cookie[0] + "=;max-age=-1";
+    setLoggedIn(false);
+    navigate("/", {replace: true})
+  }
 }
 
 const navigateMenu = () => {
@@ -175,12 +170,17 @@ const handleSubmitRegistrate = (e) => {
   e.preventDefault();
   auth.signup(formValue.email, formValue.password)
   .then((res) => {
+    navigate("/", {replace: true})
     setPopupRegister(handleOpenPopups);
       if (res._id) setActiveRegisterPopup(true)
       })
       .catch((e) => console.log(e));
 };
 
+// Авторизация
+const handleLogin = () => {
+  setLoggedIn(true);
+}
 // Авторизация
 const handleSubmitAuth = (e) => {
   e.preventDefault();
@@ -194,8 +194,13 @@ const handleSubmitAuth = (e) => {
         handleLogin();
         navigate('/cards', {replace: true});
       }
+
     })
-    .catch(err => console.log(err));
+    .catch((err) => {
+      setPopupRegister(handleOpenPopups);
+      setActiveRegisterPopup(false)
+      console.log(err)
+    });
 }
 
 // handleChange для Auth/Registrate
@@ -219,6 +224,9 @@ const handleChange = (e) => {
           handleSubmit={(e) => handleSubmitAuth(e)}
           handleChange={(e) => handleChange(e)}
           formValue={formValue}
+          isOpen={isRegisterPopupOpen}
+          onClose={handleClosePopups}
+          imgActive={isActiveRegisterPopup}
         />} />
       <Route path="/signup"
         element={<Register

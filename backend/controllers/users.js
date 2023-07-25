@@ -23,7 +23,7 @@ const login = (req, res, next) => {
       }
       return bcrypt.compare(password, user.password, (err, isPasswordMatch) => {
         if (!isPasswordMatch) {
-          throw new UnauthorizedError('Неправильный пароль!');
+          return next(new UnauthorizedError('Неправильный пароль!'));
         }
         // Создать и отдать токен
         const token = generateToken(user._id);

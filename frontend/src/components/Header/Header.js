@@ -14,7 +14,7 @@ const setMenu = () => {
 
         <nav className="header__nav">
           <ul className="header__list">
-            <li className="header__text">{data && data.data?.email}</li>
+            <li className="header__text">{data ? data.email : ""}</li>
           {/* {data && Object.values(array).map((list) => (
              <li key={list} className="header__text">{list}</li>)
              )} */}

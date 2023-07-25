@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -5,6 +7,7 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate'); // для обработки ошибок
 const routes = require('./routes/index');
 const centrError = require('./middlewares/centrError'); // централизация ошибок
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 4000 } = process.env;
 
@@ -19,6 +22,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/mydatabase', {
 
 const app = express();
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use(express.static(path.join(__dirname, '../frontend/build'))); // подключаем фронт
 
 app.use(cors({
@@ -26,11 +35,12 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json()); // то, что позволит обрабатывать json при методе post
-app.use('/api/', routes); // Подключаем роуты
-// обработка ошибок celebrate
-app.use(errors());
-// Централизация ошибок
-app.use(centrError);
+
+app.use(requestLogger); // подключаем логгер запросов
+app.use(routes); // Подключаем роуты
+app.use(errorLogger); // подключаем логгер ошибок
+app.use(errors()); // обработка ошибок celebrate
+app.use(centrError); // централизованный обработчик ошибок
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

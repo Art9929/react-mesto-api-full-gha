@@ -102,7 +102,7 @@ class Api {
 
 // подключение к API
 const api = new Api({
-  baseUrl: 'https://a-ryabcev.nomoredomains.xyz/api',
+  baseUrl: 'https://api.a-ryabcev.nomoredomains.xyz',
   headers: {
     authorization: 'cae42bd9-08a7-4ce1-b408-eabcb666728e',
     'Content-Type': 'application/json'
