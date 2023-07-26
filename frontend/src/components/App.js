@@ -100,52 +100,45 @@ function App() {
     .catch((err) => console.error(err));
   }
 
-    // Avatar
-    function handleUpdateAvatar(urlAvatar) {
-      api.changeAvatar(urlAvatar)
-      .then((urlAvatar) => {
-        setCurrentUser(urlAvatar);
-        handleClosePopups();
-      })
-      .catch((err) => console.error(err));
-    }
+  // Avatar
+  function handleUpdateAvatar(urlAvatar) {
+    api.changeAvatar(urlAvatar)
+    .then((urlAvatar) => {
+      setCurrentUser(urlAvatar);
+      handleClosePopups();
+    })
+    .catch((err) => console.error(err));
+  }
 
   useEffect(() => {
-    // setIsLoading(true); крутилка
     auth
       .checkToken()
-      .then((res) => setData(res))
+      .then((res) => { setLoggedIn(true); setData(res); navigate("/cards") })
       .catch((err) => console.error(err));
-
-    api
-      .profile()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => console.error(err));
-
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => console.error(err));
-    // .finally(() => setIsLoading(false));
-  }, [loggedIn]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
-    if (document.cookie){
-      setLoggedIn(true);
-      navigate("/cards")
-    } else {
-      setLoggedIn(false);
-      navigate("/")
+    if (loggedIn) {
+      api
+        .profile()
+        .then((data) => {
+          setCurrentUser(data);
+        })
+        .catch((err) => console.error(err));
+
+      api
+        .getInitialCards()
+        .then((data) => {
+          setCards(data);
+        })
+        .catch((err) => console.error(err));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // [] - токльо при первой загрузке
+  }, [loggedIn]);
 
 const removeToken = () => {
-// Удаление Куки при выходе
+  localStorage.clear(); // очищаем localStorage
+  // Удаление Куки при выходе
   const cookies = document.cookie.split(/;/);
   for (var i = 0, len = cookies.length; i < len; i++) {
     var cookie = cookies[i].split(/=/);
