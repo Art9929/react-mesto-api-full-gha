@@ -9,6 +9,7 @@ const cardRoutes = require('./cards');
 const {
   login,
   createUser,
+  logOut,
 } = require('../controllers/users');
 
 const celebrates = require('../middlewares/celebrates');
@@ -17,6 +18,7 @@ router.use('/users', auth, userRoutes);
 router.use('/cards', auth, cardRoutes);
 router.post('/signin', celebrates.loginUser, login);
 router.post('/signup', celebrates.registerUser, createUser);
+router.get('/logout', logOut);
 router.use('*', auth, (req, res, next) => next(new NotFound('Такой страницы не существует!')));
 
 module.exports = router;

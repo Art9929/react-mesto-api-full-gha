@@ -1,13 +1,13 @@
-export const BASE_URL = 'https://api.a-ryabcev.nomoredomains.xyz';
+export const BASE_URL = 'http://localhost:4000';
 
 export const signup = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    credentials: 'include',
     body: JSON.stringify({email, password})
   })
   .then(_response => {
@@ -24,11 +24,11 @@ export const signup = (email, password) => {
 export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    credentials: 'include',
     body: JSON.stringify({email, password})
   })
   .then(_response => {
@@ -47,11 +47,11 @@ export const authorize = (email, password) => {
 export const checkToken = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
+    credentials: 'include',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
   })
   .then(_response => {
     if (_response.ok) {
@@ -60,4 +60,16 @@ export const checkToken = () => {
     return Promise.reject(`Ошибка ${_response.status}`);
 })
   .then(data => data)
+}
+export const logOut = () => {
+  return fetch(`${BASE_URL}/logout`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(data => console.log(data))
+  .catch((err) => console.error(err));
 }

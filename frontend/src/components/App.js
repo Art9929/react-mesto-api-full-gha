@@ -123,6 +123,7 @@ function App() {
       api
         .profile()
         .then((data) => {
+          setData(data);
           setCurrentUser(data);
         })
         .catch((err) => console.error(err));
@@ -136,16 +137,17 @@ function App() {
     }
   }, [loggedIn]);
 
-const removeToken = () => {
-  localStorage.clear(); // очищаем localStorage
-  // Удаление Куки при выходе
-  const cookies = document.cookie.split(/;/);
-  for (var i = 0, len = cookies.length; i < len; i++) {
-    var cookie = cookies[i].split(/=/);
-    document.cookie = cookie[0] + "=;max-age=-1";
+// Выход
+const logOut = () => {
+// Удаление Куки, localStorage при выходе
+  auth.logOut()
+  .then(() => {
+    console.log(1221321321);
+    localStorage.clear();
     setLoggedIn(false);
     navigate("/", {replace: true})
-  }
+  })
+  .catch((err) => console.error(err));
 }
 
 const navigateMenu = () => {
@@ -207,7 +209,7 @@ const handleChange = (e) => {
   return (
     <div className="App">
     <Routes>
-    <Route element={<> <Header loggedIn={loggedIn} data={data} removeToken={removeToken} navigateMenu={navigateMenu}/> <Outlet /> </>} >
+    <Route element={<> <Header loggedIn={loggedIn} data={data} logOut={logOut} navigateMenu={navigateMenu}/> <Outlet /> </>} >
       <Route path="/" element={ loggedIn ? <Navigate to="/cards" replace /> : <Navigate to="/signin" replace /> } />
       <Route path="*" element={<h2 style={{color: "white"}}>Not found</h2>} />
       <Route path="/signin"

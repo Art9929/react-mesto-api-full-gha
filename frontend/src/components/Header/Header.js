@@ -1,6 +1,6 @@
 import './Header.css';
 
-function Header({loggedIn, data, removeToken, navigateMenu}) {
+function Header({loggedIn, data, logOut, navigateMenu}) {
 
 const setMenu = () => {
   return window.location.pathname === "/signup" ? "Войти" : "Регистрация"
@@ -22,7 +22,7 @@ const setMenu = () => {
              <button
               className="header__text-exit"
                 type="button"
-                onClick={removeToken}>
+                onClick={logOut}>
                 Выход
             </button>
         </nav>

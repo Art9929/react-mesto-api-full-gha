@@ -12,6 +12,14 @@ const { generateToken } = require('../util/jwt');
 
 const SALT_ROUNDS = 10;
 
+// Выход
+const logOut = (req, res, next) => User.findOne()
+  .then(() => {
+    res.clearCookie('auth');
+    res.status(ok).send({ message: 'Cookie cleared' });
+  })
+  .catch(next);
+
 // Авторизация
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -138,4 +146,5 @@ module.exports = {
   updateProfileUser,
   updateAvatar,
   login,
+  logOut,
 };
